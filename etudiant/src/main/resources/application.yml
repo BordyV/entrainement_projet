@@ -1,0 +1,31 @@
+server:
+  port: 8098
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+    enabled: true
+
+spring:
+  application:
+    name: student-service
+  config:
+    import: "optional:configserver:"
+
+
+
+management:
+  security:
+    enabled: false
+
+logging:
+  level:
+    com.example.workshopmicroservices: DEBUG
