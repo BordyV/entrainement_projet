@@ -1,6 +1,7 @@
 package com.example.classe.service;
 
 import com.example.classe.dto.Classe;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
@@ -14,6 +15,7 @@ public class ClasseService {
     @Autowired
     RestTemplate restTemplate;
 
+    @HystrixCommand(fallbackMethod = "callStudentServiceAndGetData_Fallback")
     public String getStudentFromHTTP(String schoolname) {
         String response = restTemplate
                 .exchange("http://localhost:8098/etudiant/{schoolname}"
@@ -23,6 +25,12 @@ public class ClasseService {
                         }, schoolname).getBody();
 
         return "School Name -  " + schoolname + " :::  Student Details " + response;
+    }
+
+    @SuppressWarnings("unused")
+    private String callStudentServiceAndGetData_Fallback(String schoolname) {
+        System.out.println("Student Service is down!!! fallback route enabled...");
+        return "CIRCUIT BREAKER ENABLED!!! CEST CASSE PARTEZ VITTTTTTTTTTTTTTTTTTTTTTTTTE";
     }
 
     @Bean
