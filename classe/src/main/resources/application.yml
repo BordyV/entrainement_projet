@@ -13,7 +13,6 @@ eureka:
     lease:
       duration: 5
     enabled: true
-
 spring:
   application:
     name: classe-service

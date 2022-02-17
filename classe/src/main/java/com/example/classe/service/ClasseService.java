@@ -1,6 +1,5 @@
 package com.example.classe.service;
 
-import com.example.classe.dto.Classe;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
